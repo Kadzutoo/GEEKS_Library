@@ -17,4 +17,4 @@ def date_time(request):
     if request.method == 'GET':
         now = datetime.now()
         formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
-        return HttpResponse(f"Текущее время: {formatted_time} 🕒")
+        return HttpResponse(f"Текущее время: {formatted_time} ")

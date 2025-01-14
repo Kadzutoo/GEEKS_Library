@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <title>Geek Book</title>
@@ -17,7 +16,7 @@
                  alt="Logo" style="width: 40px; height: 40px;">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+                aria-controls="nvbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -61,24 +60,29 @@
     </div>
 </nav>
 
-<link rel="stylesheet" href="css/book.css">
+<link rel="stylesheet" href="{% static 'css/book.css' %}">
 <!-- Контент с карточками -->
 <div class="container mt-4 content">
     <div class="row justify-content-center">
-        <!-- Пример карточки книги -->
+        {% for book in book_list %}
         <div class="col-md-4 mb-4">
             <div class="card" style="width: 100%;">
-                <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Обложка книги">
+                <img src="{{ book.image.url }}" class="card-img-top" alt="Обложка книги">
                 <div class="card-body">
-                    <h5 class="card-title">Название книги</h5>
-                    <p class="card-text">Дата выхода</p>
-                    <a href="book_detail.html" class="btn btn-primary">Подробнее</a>
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">{{ book.release_date }}</p>
+                    <p class="card-text">{{ book.description|truncatechars:100 }}</p>
+                    <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">Подробнее</a>
                 </div>
             </div>
         </div>
-        <!-- Добавьте дополнительные карточки книг здесь -->
+        {% empty %}
+        <p>Книг пока нет.</p>
+        {% endfor %}
     </div>
 </div>
+
+
 
 <!-- Футер -->
 <footer>
